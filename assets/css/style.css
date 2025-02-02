@@ -1,0 +1,66 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.search-container {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 10px;
+    border-radius: 8px;
+}
+
+
+#categorySelect {
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#bookList{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;               /* Allineato con la search box sopra */
+    margin-top: 20px;         /* Spazio dalla search box */
+    background-color: #fff;   /* Sfondo bianco per coerenza */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Ombra per profondità */
+    padding: 20px;            /* Padding interno */
+    border-radius: 8px;       /* Bordi arrotondati */
+}
+
+#bookList ol {
+    list-style: none;         /* Rimuove i marcatori di lista */
+    padding: 0;               /* Rimuove il padding predefinito */
+    width: 100%;              /* Usa tutta la larghezza del contenitore */
+}
+
+#bookList li {
+    padding: 10px;            /* Padding per ciascun elemento della lista */
+    border-bottom: 1px solid #eee; /* Linea divisoria tra gli elementi */
+}
+
+#bookList li:last-child {
+    border-bottom: none;      /* Rimuove il bordo dall'ultimo elemento */
+}
+button {
+    background-color: #007FFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
