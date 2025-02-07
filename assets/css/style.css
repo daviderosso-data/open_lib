@@ -1,66 +1,87 @@
+@charset "UTF-8";
+/* Importa Materialize CSS */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css");
 body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f4f4f4;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
 }
 
-.search-container {
-    background: white;
-    padding: 20px;
-    width: 80%;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    gap: 10px;
-    border-radius: 8px;
+.container {
+  max-width: 1080px;
+  margin-top: 50px;
 }
 
-
-#categorySelect {
-    border: 2px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
+.logo {
+  width: 120px;
+  display: block;
+  margin: 0 auto;
 }
 
-#bookList{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 80%;               /* Allineato con la search box sopra */
-    margin-top: 20px;         /* Spazio dalla search box */
-    background-color: #fff;   /* Sfondo bianco per coerenza */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* Ombra per profondità */
-    padding: 20px;            /* Padding interno */
-    border-radius: 8px;       /* Bordi arrotondati */
+.custumBtn {
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 
-#bookList ol {
-    list-style: none;         /* Rimuove i marcatori di lista */
-    padding: 0;               /* Rimuove il padding predefinito */
-    width: 100%;              /* Usa tutta la larghezza del contenitore */
+.input-field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-#bookList li {
-    padding: 10px;            /* Padding per ciascun elemento della lista */
-    border-bottom: 1px solid #eee; /* Linea divisoria tra gli elementi */
+#searchBox {
+  width: 100%;
+  min-width: 300px;
+  border-radius: 8px;
 }
 
-#bookList li:last-child {
-    border-bottom: none;      /* Rimuove il bordo dall'ultimo elemento */
-}
-button {
-    background-color: #007FFF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
+#result-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonne */
+  gap: 20px; /* Spazio tra le card */
+  padding: 20px;
+  justify-content: center;
 }
 
-button:hover {
-    background-color: #0056b3;
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  align-items: center;
+  height: 600px;
 }
+
+.card img {
+  width: 100%;
+  height: 280px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.card-author {
+  display: inline-block;
+  height: 60px;
+}
+
+.card-title {
+  display: inline-block;
+  height: 100px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+/* 🔹 Responsività per schermi più piccoli */
+@media (max-width: 1024px) {
+  #results-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet */
+  }
+}
+@media (max-width: 600px) {
+  #results-container {
+    grid-template-columns: repeat(1, 1fr); /* 1 colonna su mobile */
+  }
+}/*# sourceMappingURL=style.css.map */

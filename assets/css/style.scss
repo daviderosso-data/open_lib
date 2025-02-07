@@ -1,0 +1,86 @@
+/* Importa Materialize CSS */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css');
+
+// Variabili per i colori principali
+$primary-color: #007FFF;
+$secondary-color: #ffffff;
+$text-color: #333;
+$border-radius: 8px;
+
+body {
+    background-color: $secondary-color;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    max-width: 1080px;
+    margin-top: 50px;
+}
+
+.logo {
+    width: 120px;
+    display: block;
+    margin: 0 auto;
+}
+
+.custumBtn{
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+
+
+.input-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#searchBox {
+    width: 100%;
+    min-width: 300px;
+    border-radius: $border-radius;
+}
+
+#result-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonne */
+    gap: 20px; /* Spazio tra le card */
+    padding: 20px;
+    justify-content: center;
+}
+.card{
+        display: flex; 
+        flex-direction: column; 
+        justify-content: space-between; 
+        align-items: center; 
+        text-align: center;
+        align-items: center;
+        height: 600px;
+}
+
+.card img{
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.card-author{
+    display: inline-block;
+    height: 60px;
+}
+
+
+.card-title{
+    display: inline-block;
+    height: 100px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* 🔹 Responsività per schermi più piccoli */
+@media (max-width: 1024px) {
+    #results-contain
