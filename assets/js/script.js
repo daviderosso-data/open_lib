@@ -171,16 +171,18 @@ searchButton.addEventListener('click', () =>{
     }else{
     
     offset = 0;
-    fetchBooks(selectedCategory, offset);}
+    fetchBooks(selectedCategory, offset);
     resultCategory = selectedCategory;
-    selectedCategory = ''; 
+    
+
+    selectedCategory = ''; }
+
 });
 
 
 nextPage.addEventListener('click', ()=>{
     offset += 12;
     fetchBooks(resultCategory, offset);
-
 });
 
 prevPage.addEventListener('click', ()=>{
