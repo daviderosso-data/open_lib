@@ -2,7 +2,7 @@
 let offset = 0;
 let selectedCategory = '';
 const searchButton = document.getElementById('searchButton');
-const searchBox = document.getElementById('searchBox');
+const searchBox = document.getElementById('autocomplete-input');
 const resultsContainer = document.getElementById('result-container');
 const prevPage = document.getElementById('prevPage');
 const nextPage = document.getElementById('nextPage');
@@ -12,23 +12,24 @@ let resultCategory = '';
 document.addEventListener('DOMContentLoaded', function(){
     selectedCategory = '';
     let elems = document.querySelectorAll('.autocomplete');
-    let displayCategories = {}; // JSON per l'autocomplete visibile
+    let displayCategories = {}; 
     let searchCategories = {}; 
         
-        fetch('/assets/json/categories.json')
+        fetch('assets/json/categories.json')
         .then(response => response.json())
         .then(data => {
             displayCategories = data;
-            return fetch('assets/json/searchCategories.json'); // 🔹 Carica il secondo JSON
+            return fetch('assets/json/searchCategories.json'); 
         })
         .then(response => response.json())
         .then(data => {
             searchCategories = data; 
+            console.log(searchCategories);
             M.Autocomplete.init(elems, {
                 data: displayCategories,
                 onAutocomplete: function (val) {
-                    let searchValue = searchCategories[val] || val; 
-                    searchBox.value = searchValue;
+                    console.log(val);
+                    searchBox.value = searchCategories[val] || val; 
                 }
             });
         })
@@ -163,7 +164,7 @@ async function fetchBooks(category,offset){
 
 searchButton.addEventListener('click', () =>{
     if(selectedCategory === ''){
-        let typedCategory = document.getElementById('autocomplete-input').value
+        let typedCategory = document.getElementById('autocomplete-input').value.trim();
         fetchBooks(typedCategory,offset);
         resultCategory = typedCategory;
         typedCategory = '';
