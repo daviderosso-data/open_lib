@@ -95,15 +95,14 @@ input[type="text"] {
     
 }
 
-/* 🔹 Responsività per schermi più piccoli */
 @media (max-width: 1024px) {
-    #results-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet */
+    #result-container {
+        grid-template-columns: repeat(2, 1fr) !important; 
     }
 }
 
 @media (max-width: 600px) {
-    #results-container {
-        grid-template-columns: repeat(1, 1fr); /* 1 colonna su mobile */
+    #result-container {
+        grid-template-columns: repeat(1, 1fr) !important;
     }
 }
