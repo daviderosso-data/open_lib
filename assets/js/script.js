@@ -6,39 +6,115 @@ const searchBox = document.getElementById('searchBox');
 const resultsContainer = document.getElementById('result-container');
 const prevPage = document.getElementById('prevPage');
 const nextPage = document.getElementById('nextPage');
+const noResultContainer = document.getElementById('noResultContainer');
+let resultCategory = '';
 
-//Inizializzo l'autocomplete della searchBox
 document.addEventListener('DOMContentLoaded', function(){
+    selectedCategory = '';
     let elems = document.querySelectorAll('.autocomplete');
-    M.Autocomplete.init(elems, {
-        data: {
-            "fantasy": null,
-            "science": null
-        },
-        onAutocomplete: function(val) {
-            selectedCategory = val; 
-        }
-    });
+    let displayCategories = {}; // JSON per l'autocomplete visibile
+    let searchCategories = {}; 
+        
+        fetch('/assets/json/categories.json')
+        .then(response => response.json())
+        .then(data => {
+            displayCategories = data;
+            return fetch('assets/json/searchCategories.json'); // 🔹 Carica il secondo JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            searchCategories = data; 
+            M.Autocomplete.init(elems, {
+                data: displayCategories,
+                onAutocomplete: function (val) {
+                    let searchValue = searchCategories[val] || val; 
+                    searchBox.value = searchValue;
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Errore nel caricamento delle categorie:", error);
+        });
 });
 
 
+function createModal(description,title) {
+    let existingModal = document.getElementById("bookModal");
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    let modalHTML = `
+        <div id="bookModal" class="modal">
+            <div class="modal-content">
+                <h4>${title}</h4>
+                <p>${description}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close btn black waves-effect waves-light">Chiudi</button>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    let modalElement = document.getElementById("bookModal");
+    let instance = M.Modal.init(modalElement);
+    
+    instance.open();
+}
+
+
+async function showDescription(key,title){
+    console.log("Recupero descrizione per:", key);
+
+    let apiUrl = `https://openlibrary.org${key}.json`;
+
+    try {
+        let response = await fetch(apiUrl);
+        let data = await response.json();
+
+        let description = data.description 
+            ? (typeof data.description === "string" ? data.description : data.description.value)
+            : "Nessuna descrizione disponibile.";
+
+        createModal(description,title);
+
+    } catch (error) {
+        console.error("Errore nel recupero della descrizione:", error);
+    }
+}
+
+
 //Funzione di ricerca
-function fetchBooks(category,offset){
+async function fetchBooks(category,offset){
     const url = `https://openlibrary.org/subjects/${category}.json?offset=${offset}`;
     let maxLength = 20;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data =>{
+    try{
+        let response =  await fetch(url);
+        if (!response.ok){
+            throw new Error(`errore nel fetch: ${response.status}`);
+        }
+        let data = await response.json();
+        console.log(data);
+        if (data.work_count === 0){
             resultsContainer.innerHTML = '';
-            if (data.works.lenght === 0 ){
-                resultsContainer.innerHTML = '<p>Nessun Libro Trovato in questa categoria</p>';
-                return;
-            }
+            const noResult = document.createElement('div');
+            noResult.className = 'noResult';
+            noResult.textContent = " :-( nessun libro trovato con questa ricerca";
+            noResultContainer.appendChild(noResult);
+        }else{
+            noResultContainer.innerHTML = '';
+            resultsContainer.innerHTML = '';
+
+            let totalBooks = data.work_count; 
+            let totalPages = Math.ceil(totalBooks / 12);
+            let currentPage = Math.floor(offset/ 12) + 1;
+
+            document.getElementById("page-count").textContent = `Pagina ${currentPage} di ${totalPages}`;
+
             data.works.forEach(work => {
-                console.log(work
-                );
-                
+                console.log(work);
                 
                 const card = document.createElement('div');
                 card.className = 'card';
@@ -56,8 +132,11 @@ function fetchBooks(category,offset){
                 cover.src =  `https://covers.openlibrary.org/b/id/${work.cover_id}.jpg`;
 
                 const button = document.createElement('button');
-                button.className = "custumBtn btn waves-effect waves-light";
+                button.className = "custumBtn btn black waves-effect waves-light";
                 button.textContent = "descrizione";
+                button.onclick = () => showDescription(work.key,work.title);
+                
+                
 
                 const author = document.createElement('p');
                 author.className = 'card-author';
@@ -73,24 +152,39 @@ function fetchBooks(category,offset){
                 resultsContainer.appendChild(card);
 
                 prevPage.disabled = offset === 0;
-            });
-        });
-
+            
+            
+            });}
+   
+}catch(error){
+    console.error('Errore durante la richiesta', error);
+}  
 }
 
 searchButton.addEventListener('click', () =>{
+    if(selectedCategory === ''){
+        let typedCategory = document.getElementById('autocomplete-input').value
+        fetchBooks(typedCategory,offset);
+        resultCategory = typedCategory;
+        typedCategory = '';
+    }else{
+    
     offset = 0;
-    fetchBooks(selectedCategory, offset);
+    fetchBooks(selectedCategory, offset);}
+    resultCategory = selectedCategory;
+    selectedCategory = ''; 
 });
+
 
 nextPage.addEventListener('click', ()=>{
     offset += 12;
-    fetchBooks(selectedCategory, offset);
+    fetchBooks(resultCategory, offset);
+
 });
 
 prevPage.addEventListener('click', ()=>{
     if (offset > 0){
         offset -= 12;
-        fetchBooks(selectedCategory, offset);
+        fetchBooks(resultCategory, offset);
     }
 });

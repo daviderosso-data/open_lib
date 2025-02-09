@@ -12,13 +12,21 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+
 .container {
     max-width: 1080px;
     margin-top: 50px;
 }
+input[type="text"] {
+    font-family: "Times", "Times New Roman", serif; /* Imposta il font */
+}
+
+.input-field {
+    font-family: 'Times New Roman', Times, serif;
+}
 
 .logo {
-    width: 120px;
+    width: 240px;
     display: block;
     margin: 0 auto;
 }
@@ -57,7 +65,7 @@ body {
         align-items: center; 
         text-align: center;
         align-items: center;
-        height: 600px;
+        height:560px;
 }
 
 .card img{
@@ -71,7 +79,7 @@ body {
 
 .card-author{
     display: inline-block;
-    height: 60px;
+    height: 50px;
 }
 
 
@@ -80,7 +88,22 @@ body {
     height: 100px;
     font-family: 'Times New Roman', Times, serif;
 }
+.noResult{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 50px;
+    font-weight: 500;
+    
+}
 
 /* 🔹 Responsività per schermi più piccoli */
 @media (max-width: 1024px) {
-    #results-contain
+    #results-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne su tablet */
+    }
+}
+
+@media (max-width: 600px) {
+    #results-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 colonna su mobile */
+    }
+}
