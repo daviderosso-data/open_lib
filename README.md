@@ -23,4 +23,10 @@ https://www.linkedin.com/in/rosso-davide/
 
 ## Version History
 
-* 0.0 
+* 0.5 - impostaziondi di base e test
+* 0.8 - coinfigurazione chiamate API 
+* 0.9 - prima versione alpha
+* 0.9.1 - correzzione bug foglio di stile
+* 0.9.2 - correzzione bug avanzamento pagina
+* 0.9.3 - aggiunta di webpack e compilazione
+* 0.9.4 - implementazione libreria axios per caricamento api

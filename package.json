@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Progetto javascript advanced Start2Impact",
   "main": "webpack.config.js",
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daviderosso-data/open_lib.git"
@@ -24,8 +23,11 @@
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "build": "webpack",
-  "watch": "webpack --watch"
-}
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  }
 }

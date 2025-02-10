@@ -1,5 +1,7 @@
 import '../css/style.scss'; 
-console.log("Webpack è attivo!");let offset = 0;
+import axios from 'axios';
+
+let offset = 0;
 
 let selectedCategory = '';
 const searchButton = document.getElementById('searchButton');
@@ -10,34 +12,30 @@ const nextPage = document.getElementById('nextPage');
 const noResultContainer = document.getElementById('noResultContainer');
 let resultCategory = '';
 
-document.addEventListener('DOMContentLoaded', function(){
-    selectedCategory = '';
-    let elems = document.querySelectorAll('.autocomplete');
-    let displayCategories = {}; 
-    let searchCategories = {}; 
-        
-        fetch('assets/json/categories.json')
-        .then(response => response.json())
-        .then(data => {
-            displayCategories = data;
-            return fetch('assets/json/searchCategories.json'); 
-        })
-        .then(response => response.json())
-        .then(data => {
-            searchCategories = data; 
-            console.log(searchCategories);
-            M.Autocomplete.init(elems, {
-                data: displayCategories,
-                onAutocomplete: function (val) {
-                    console.log(val);
-                    searchBox.value = searchCategories[val] || val; 
-                }
-            });
-        })
-        .catch(error => {
-            console.error("Errore nel caricamento delle categorie:", error);
+
+async function loadCategories() {
+    try {
+        const [displayRes, searchRes] = await Promise.all([
+            axios.get('assets/json/categories.json'),
+            axios.get('assets/json/searchCategories.json')
+        ]);
+
+        let displayCategories = displayRes.data;
+        let searchCategories = searchRes.data;
+
+        M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {
+            data: displayCategories,
+            onAutocomplete: (val) => {
+                searchBox.value = searchCategories[val] || val;
+            }
         });
-});
+
+    } catch (error) {
+        console.error("Errore nel caricamento delle categorie:", error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadCategories);
 
 
 function createModal(description,title) {
@@ -90,14 +88,10 @@ async function showDescription(key,title){
 
 //Funzione di ricerca
 async function fetchBooks(category,offset){
-    const url = `https://openlibrary.org/subjects/${category}.json?offset=${offset}`;
     let maxLength = 20;
-    try{
-        let response =  await fetch(url);
-        if (!response.ok){
-            throw new Error(`errore nel fetch: ${response.status}`);
-        }
-        let data = await response.json();
+    const url = `https://openlibrary.org/subjects/${category}.json?offset=${offset}`;
+    try {
+        const { data } = await axios.get(url); 
         console.log(data);
         if (data.work_count === 0){
             resultsContainer.innerHTML = '';
