@@ -1,5 +1,6 @@
-// definisco variabili e costanti
-let offset = 0;
+import '../css/style.scss'; 
+console.log("Webpack è attivo!");let offset = 0;
+
 let selectedCategory = '';
 const searchButton = document.getElementById('searchButton');
 const searchBox = document.getElementById('autocomplete-input');

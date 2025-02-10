@@ -1,0 +1,31 @@
+{
+  "name": "open_lib",
+  "version": "1.0.0",
+  "description": "Progetto javascript advanced Start2Impact",
+  "main": "webpack.config.js",
+  
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daviderosso-data/open_lib.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daviderosso-data/open_lib/issues"
+  },
+  "homepage": "https://github.com/daviderosso-data/open_lib#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.2",
+    "sass": "^1.84.0",
+    "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "build": "webpack",
+  "watch": "webpack --watch"
+}
+}
