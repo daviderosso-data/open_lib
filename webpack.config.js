@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './assets/js/script.js', // 🔹 File JS principale
+    entry: './assets/js/main.js', // 🔹 File JS principale
     output: {
         filename: 'bundle.js', // 🔹 File generato
         path: path.resolve(__dirname, 'dist') // 🔹 Cartella di output
