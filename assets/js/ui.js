@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { searchBox } from './main';
 import { fetchBooks } from "./api";
+import { showDescription } from './api';
 
 const resultsContainer = document.getElementById('result-container');
 const prevPage = document.getElementById('prevPage');
 const nextPage = document.getElementById('nextPage');
 const noResultContainer = document.getElementById('noResultContainer');
+const pageCount = document.getElementById("page-count");
+
  
 export async function loadCategories() {
     try {
@@ -34,12 +37,17 @@ export async function showBooks(category,offset){
         const data = await fetchBooks(category, offset);
         console.log(data.work_count);
         if (data.work_count === 0){
+            console.log('nessun risultato');
             resultsContainer.innerHTML = '';
-            const noResult = document.createElement('div');
-            noResult.className = 'noResult';
+            const noResult = document.createElement('div'); 
+            noResult.className = 'noResult'; 
             noResult.textContent = " :-( nessun libro trovato con questa ricerca";
             noResultContainer.appendChild(noResult);
-        }
+            nextPage.classList.add('hidden');
+            prevPage.classList.add('hidden');
+            pageCount.classList.add('hidden');
+
+        }else{
             noResultContainer.innerHTML = '';
             resultsContainer.innerHTML = '';
 
@@ -47,8 +55,8 @@ export async function showBooks(category,offset){
             let totalPages = Math.ceil(totalBooks / 12);
             let currentPage = Math.floor(offset/ 12) + 1;
 
-            document.getElementById("page-count").textContent = `Pagina ${currentPage} di ${totalPages}`;
-
+            pageCount.textContent = `Pagina ${currentPage} di ${totalPages}`;
+            pageCount.classList.remove('hidden');
             data.works.forEach(work => {
                 console.log(work);
                 
@@ -83,11 +91,40 @@ export async function showBooks(category,offset){
                 cardimage.appendChild(cover);
                 card.appendChild(cardimage);
                 cardimage.appendChild(button);
-                
+                nextPage.classList.remove('hidden');
+                prevPage.classList.remove('hidden');
                 
                 resultsContainer.appendChild(card);
 
                 prevPage.disabled = offset === 0;
             
             
-});}
+});}}
+
+
+
+export function createModal(description,title) {
+    let existingModal = document.getElementById("bookModal");
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    let modalHTML = `
+        <div id="bookModal" class="modal">
+            <div class="modal-content">
+                <h4>${title}</h4>
+                <p>${description}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-close btn black waves-effect waves-light">Chiudi</button>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+    let modalElement = document.getElementById("bookModal");
+    let instance = M.Modal.init(modalElement);
+    
+    instance.open();
+}

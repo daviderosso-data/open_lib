@@ -12,11 +12,17 @@ export const searchBox = document.getElementById('autocomplete-input');
 document.addEventListener('DOMContentLoaded', loadCategories);
 
 searchButton.addEventListener('click', () =>{
+    offset = 0;
+
+
     if(selectedCategory === ''){
+
         let typedCategory = searchBox.value.trim();
         showBooks(typedCategory,offset);
         resultCategory = typedCategory;
         typedCategory = '';
+        
+
     }else{
     
     offset = 0;
@@ -39,3 +45,4 @@ prevPage.addEventListener('click', ()=>{
         showBooks(resultCategory, offset);
     }
 });
+

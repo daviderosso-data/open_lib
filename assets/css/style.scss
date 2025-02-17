@@ -89,6 +89,10 @@ input[type="text"] {
     font-family:'Times New Roman', Times, serif;
     font-size: 50px;
     font-weight: 500;
+    display: grid;
+    justify-content: center;}
+.hidden {
+    display: none !important; 
 }
 
 @media (max-width: 1024px) {
