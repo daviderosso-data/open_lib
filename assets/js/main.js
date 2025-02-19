@@ -25,7 +25,7 @@ searchButton.addEventListener('click', () =>{
         typedCategory = '';
         
 
-    }else{ // attiva shobooks se il termine e selezionato 
+    }else{ // attiva shobooks se il termine e selezionat
     
     offset = 0;
     showBooks(selectedCategory, offset);
