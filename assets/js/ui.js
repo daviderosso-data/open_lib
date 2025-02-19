@@ -1,15 +1,17 @@
+// importo librerie e funzioni
 import axios from 'axios';
 import { searchBox } from './main';
 import { fetchBooks } from "./api";
 import { showDescription } from './api';
 
+// definisco costanti in base agli elementi del DOM
 const resultsContainer = document.getElementById('result-container');
 const prevPage = document.getElementById('prevPage');
 const nextPage = document.getElementById('nextPage');
 const noResultContainer = document.getElementById('noResultContainer');
 const pageCount = document.getElementById("page-count");
 
- 
+ // funzione per autocomplete della searchbox e assegna automaticamente alla searchbox il valore corrispondente alla categoria utilizzabile per la query di ricerca
 export async function loadCategories() {
     try {
         const [displayRes, searchRes] = await Promise.all([
@@ -31,12 +33,12 @@ export async function loadCategories() {
     }
 }
 
+// funzione principale di visualizzazione dei risultati
 export async function showBooks(category,offset){
-    let maxLength = 20;
-    const url = `https://openlibrary.org/subjects/${category}.json?offset=${offset}`;
+    let maxLength = 20; // lunghezza massima testo del titolo
         const data = await fetchBooks(category, offset);
         console.log(data.work_count);
-        if (data.work_count === 0){
+        if (data.work_count === 0){ // messaggio di nessun risultato per la ricerca
             console.log('nessun risultato');
             resultsContainer.innerHTML = '';
             const noResult = document.createElement('div'); 
@@ -47,7 +49,7 @@ export async function showBooks(category,offset){
             prevPage.classList.add('hidden');
             pageCount.classList.add('hidden');
 
-        }else{
+        }else{ 
             noResultContainer.innerHTML = '';
             resultsContainer.innerHTML = '';
 
@@ -55,8 +57,8 @@ export async function showBooks(category,offset){
             let totalPages = Math.ceil(totalBooks / 12);
             let currentPage = Math.floor(offset/ 12) + 1;
 
-            pageCount.textContent = `Pagina ${currentPage} di ${totalPages}`;
-            pageCount.classList.remove('hidden');
+            pageCount.textContent = `Pagina ${currentPage} di ${totalPages}`; // contatore i pagina
+            pageCount.classList.remove('hidden'); 
             data.works.forEach(work => {
                 console.log(work);
                 
@@ -102,7 +104,7 @@ export async function showBooks(category,offset){
 });}}
 
 
-
+// funzione che crea la finestra modale per visualizzare la descrizione
 export function createModal(description,title) {
     let existingModal = document.getElementById("bookModal");
     if (existingModal) {

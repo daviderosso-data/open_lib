@@ -30,3 +30,7 @@ https://www.linkedin.com/in/rosso-davide/
 * 0.9.2 - correzzione bug avanzamento pagina
 * 0.9.3 - aggiunta di webpack e compilazione
 * 0.9.4 - implementazione libreria axios per caricamento api
+* 0.9.5 - migliorata leggibilità codice
+* 1.0.0 - versione definitiva
+* 1.0.1 - eliminazione file superflui
+* 1.0.2 - commento codice

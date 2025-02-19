@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { createModal } from './Ui';
+import axios from 'axios'; // importo libreria axios
+import { createModal } from './Ui'; // importo la funzione createModal da ui.js
 
+// fetch su openlibrary che restituisce una lista di libri in base a offset
 export async function fetchBooks(category, offset) {
     const url = `https://openlibrary.org/subjects/${category}.json?offset=${offset}`;
     try {
@@ -11,6 +12,7 @@ export async function fetchBooks(category, offset) {
 }  
  }
 
+ // funzione che fa un fetch su openlibrary in base alla key del libro e crea un modal utilizzando createModal di ui.js 
  export async function showDescription(key,title){
     console.log("Recupero descrizione per:", key);
 
