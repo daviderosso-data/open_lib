@@ -3,6 +3,11 @@ import { createModal, loadCategories } from "./Ui"; // importo loadCategories da
 import { showBooks } from "./Ui"; // importo showBooks da ui.js
 import 'materialize-css/dist/css/materialize.min.css'; // importo css di materialize
 import 'materialize-css/dist/js/materialize.min.js'; // importo Js materialize
+
+import _ from 'lodash';
+
+
+
 let offset = 0; // definisco offset - punto in cui partire per visualizzare la lista di libri
 
 //definisco variabili e costanti
@@ -14,8 +19,9 @@ export const searchBox = document.getElementById('autocomplete-input');
 // al caricamento del DOM carico le categorie da visualizzare nella searchbox autocomplete
 document.addEventListener('DOMContentLoaded', loadCategories);
 
-// al click di searchButton attiva la funzione showBooks 
-searchButton.addEventListener('click', () =>{
+// utilizzo debounce per 
+
+    const debouncedSearch = _.debounce(() => { 
     offset = 0;
     let typedCategory = searchBox.value.trim();
     if (selectedCategory === '' && typedCategory === ''){
@@ -26,35 +32,31 @@ searchButton.addEventListener('click', () =>{
             });
             return;
         }
-     
     if(selectedCategory === ''){ //attiva showbooks se il termine e digitato
         showBooks(typedCategory,offset);
         resultCategory = typedCategory;
         typedCategory = '';
-        
-
     }else{ // attiva shobooks se il termine e selezionat
-    
     offset = 0;
     showBooks(selectedCategory, offset);
     resultCategory = selectedCategory;
-    
-
     selectedCategory = ''; }
+}, 500); // 500 millisecondi di delay prima di avviare il ciclo
 
-});
+searchButton.addEventListener('click', debouncedSearch);
 
 // pulsante avanti, attiva showbooks sul termine result con +12 di offset
-nextPage.addEventListener('click', ()=>{
+nextPage.addEventListener('click',_.debounce( ()=>{ // debounce ritarda di 300ms la chiamata alle api per evitare problemi con click continui
     offset += 12;
     showBooks(resultCategory, offset);
-});
+},300));
+
 // pulsante indietro, attiva showbooks sul termine result con -12 di offset
 
-prevPage.addEventListener('click', ()=>{
+prevPage.addEventListener('click',_.debounce(()=>{// debounce ritarda di 300ms la chiamata alle api per evitare problemi con click continui
     if (offset > 0){
         offset -= 12;
         showBooks(resultCategory, offset);
     }
-});
+},300));
 

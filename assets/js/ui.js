@@ -19,8 +19,8 @@ export async function loadCategories() {
             axios.get('assets/json/searchCategories.json')
         ]);
 
-        let displayCategories = displayRes.data;
-        let searchCategories = searchRes.data;
+        let displayCategories = _.get(displayRes, 'data', {}); // utilizzo _.get per evitare errori nel caso di dati mancanti
+        let searchCategories = _.get(searchRes, 'data', {});
         M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {
             data: displayCategories,
             onAutocomplete: (val) => {
@@ -35,7 +35,7 @@ export async function loadCategories() {
 
 // funzione principale di visualizzazione dei risultati
 export async function showBooks(category,offset){
-    let maxLength = 20; // lunghezza massima testo del titolo
+        let maxLength = 20; // lunghezza massima testo del titolo
         const data = await fetchBooks(category, offset);
         console.log(data.work_count);
         if (data.work_count === 0){ // messaggio di nessun risultato per la ricerca
@@ -53,7 +53,7 @@ export async function showBooks(category,offset){
             noResultContainer.innerHTML = '';
             resultsContainer.innerHTML = '';
 
-            let totalBooks = data.work_count; 
+            let totalBooks = _.defaultTo(data.work_count, 0);// utilizzo defaultTo per evitare eventuali errori in caso work_count sia undefined 
             let totalPages = Math.ceil(totalBooks / 12);
             let currentPage = Math.floor(offset/ 12) + 1;
 
@@ -71,8 +71,7 @@ export async function showBooks(category,offset){
 
                 const title = document.createElement('span');
                 title.className = 'card-title';
-                title.textContent = work.title.length > 25 ? work.title.substring(0, 25) + "..." : work.title;
-
+                title.textContent = _.truncate(_.get(work, 'title', 'Nessun Titolo'), {length:25, omission: '...'});// utilizzo .truncate per ridurre a 25 il numero massimo di caratteri di title e utilizzo get gestendo cosi eventuali errori
 
                 const cover = document.createElement('img');
                 cover.src =  `https://covers.openlibrary.org/b/id/${work.cover_id}.jpg`;
@@ -86,7 +85,7 @@ export async function showBooks(category,offset){
 
                 const author = document.createElement('p');
                 author.className = 'card-author';
-                author.textContent = work.authors[0].name.length > 20 ? work.authors[0].name.substring(0, 20) + "..." : work.authors[0].name;
+                author.textContent = _.truncate(_.get(work, 'authors[0].name', 'Autore sconosciuto'), {length: 20, omission: '...'}  );// utilizzo .truncate per ridurre a 20 il numero massimo di caratteri di author e utilizzo get gestendo cosi eventuali errori
                 
                 card.appendChild(title);
                 card.appendChild(author);
