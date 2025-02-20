@@ -21,10 +21,14 @@ export async function fetchBooks(category, offset) {
     try {
         const { data } = await axios.get(apiUrl);
 
-        let description = data.description 
-            ? (typeof data.description === "string" ? data.description : data.description.value)
-            : "Nessuna descrizione disponibile.";
-
+        let description = _.get(data, 'description', 'Nessuna descrizione disponibile.' );
+        console.log(description);
+        console.log(description.value);
+        if (description === 'string'){
+            return;
+        }else{
+            description = _.get(data, 'description.value', 'Nessuna descrizione.' );
+        }
         createModal(description,title);
 
     } catch (error) {

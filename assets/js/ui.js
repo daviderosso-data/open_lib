@@ -19,8 +19,8 @@ export async function loadCategories() {
             axios.get('assets/json/searchCategories.json')
         ]);
 
-        let displayCategories = _.get(displayRes, 'data', {}); // utilizzo _.get per evitare errori nel caso di dati mancanti
-        let searchCategories = _.get(searchRes, 'data', {});
+        let displayCategories = displayRes.data;
+        let searchCategories = searchRes.data;
         M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {
             data: displayCategories,
             onAutocomplete: (val) => {

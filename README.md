@@ -41,3 +41,4 @@ https://www.linkedin.com/in/rosso-davide/
 * 2.0.2 - aggiunta favicon e integrazione di materilialize in webpack
 * 2.0.3 - aggiunta modale di alert se searchbox vuota
 * 2.0.5 - Implementato lodash con le funzioni _.get _.debounce _.truncate _.defaultTo
+* 2.0.6 - Debug e commenti al codice
