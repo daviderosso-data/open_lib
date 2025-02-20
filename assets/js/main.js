@@ -1,6 +1,8 @@
 import '../css/style.scss';  // importo css
 import { loadCategories } from "./Ui"; // importo loadCategories da ui.js
 import { showBooks } from "./Ui"; // importo showBooks da ui.js
+import 'materialize-css/dist/css/materialize.min.css'; // importo css di materialize
+import 'materialize-css/dist/js/materialize.min.js'; // importo Js materialize
 let offset = 0; // definisco offset - punto in cui partire per visualizzare la lista di libri
 
 //definisco variabili e costanti

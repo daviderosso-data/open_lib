@@ -15,9 +15,13 @@
   },
   "homepage": "https://github.com/daviderosso-data/open_lib#readme",
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
-    "sass": "^1.84.0",
-    "sass-loader": "^16.0.4",
+    "mini-css-extract-plugin": "^2.9.2",
+    "sass": "^1.85.0",
+    "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1"
@@ -28,6 +32,8 @@
     "watch": "webpack --watch"
   },
   "dependencies": {
-    "axios": "^1.7.9"
+    "axios": "^1.7.9",
+    "lodash": "^4.17.21",
+    "materialize-css": "^1.0.0"
   }
 }

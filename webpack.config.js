@@ -1,18 +1,40 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: './assets/js/main.js', // 🔹 File JS principale
+    entry: './assets/js/main.js',
     output: {
-        filename: 'bundle.js', // 🔹 File generato
-        path: path.resolve(__dirname, 'dist') // 🔹 Cartella di output
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, 'dist')
     },
-    mode: 'development', // 🔹 Usa "production" per ottimizzare il codice
+    mode: 'development', 
     module: {
         rules: [
             {
-                test: /\.scss$/, // 🔹 Gestisce i file SCSS
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                test: /\.js$/, 
+                exclude: /node_modules/,
+                use: {
+                    loader: "babel-loader"
+                }
+            },
+            {
+                test: /\.css$/, 
+                use: [
+                    MiniCssExtractPlugin.loader, 
+                    "css-loader" 
+                ]
+            },
+            {
+                test: /\.scss$/, 
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({ filename: "styles.css" }) 
+    ]
 };
