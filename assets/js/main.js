@@ -1,5 +1,5 @@
 import '../css/style.scss';  // importo css
-import { loadCategories } from "./Ui"; // importo loadCategories da ui.js
+import { createModal, loadCategories } from "./Ui"; // importo loadCategories da ui.js
 import { showBooks } from "./Ui"; // importo showBooks da ui.js
 import 'materialize-css/dist/css/materialize.min.css'; // importo css di materialize
 import 'materialize-css/dist/js/materialize.min.js'; // importo Js materialize
@@ -17,11 +17,17 @@ document.addEventListener('DOMContentLoaded', loadCategories);
 // al click di searchButton attiva la funzione showBooks 
 searchButton.addEventListener('click', () =>{
     offset = 0;
-
-
+    let typedCategory = searchBox.value.trim();
+    if (selectedCategory === '' && typedCategory === ''){
+            M.toast({ 
+                html: 'Nessun termine inserito!',
+                classes: 'red darken-3 white-text',
+                displayLength: 2000
+            });
+            return;
+        }
+     
     if(selectedCategory === ''){ //attiva showbooks se il termine e digitato
-
-        let typedCategory = searchBox.value.trim();
         showBooks(typedCategory,offset);
         resultCategory = typedCategory;
         typedCategory = '';

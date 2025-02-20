@@ -1,8 +1,11 @@
 /*!****************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/css/style.scss ***!
   \****************************************************************************************************************/
+@import url(https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css);
+/*!********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/css/style.scss (1) ***!
+  \********************************************************************************************************************/
 /* /* Importa Materialize CSS */
-/* @import url('https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'); */
 body {
   background-color: #ffffff;
   font-family: "Roboto", sans-serif;

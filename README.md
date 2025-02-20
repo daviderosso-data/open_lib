@@ -11,6 +11,10 @@ Creazione di un portale connesso alle API di Open Library
 
 ## Getting Started
 
+## Versione Live
+
+Visionabile al seguente link https://daviderosso-data.github.io/open_lib/
+
 ### Dependencies
 
 * Il software non prevede nessun framework esterno ne l'utilizzo di jQuery
@@ -34,3 +38,5 @@ https://www.linkedin.com/in/rosso-davide/
 * 1.0.0 - versione definitiva
 * 1.0.1 - eliminazione file superflui
 * 1.0.2 - commento codice
+* 2.0.2 - aggiunta favicon e integrazione di materilialize in webpack
+* 2.0.3 - aggiunta modale di alert se searchbox vuota
